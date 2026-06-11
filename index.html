@@ -192,7 +192,7 @@
     </div>
 
     <script>
-        const WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbw3aNKs3vyBK1iIaD6jbRFsQ9t73tw8GuXUwZV0Wm6GLm1uszGjL43HTGIF91FU4Y_l-w/exec";
+        const WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbwmtCJX-NfG8dMpPz5Y2B2wxn5lwWn2D6KhMLuokDaRrAYQ0REYjKrrTQcbx8AzYd_e_A/exec";
 
         const cardJazz = document.getElementById('card-jazz');
         const cardBoxe = document.getElementById('card-boxe');
@@ -221,23 +221,16 @@
             }, 4000);
         }
 
-async function enviarParaSheets(aluno) {
-    try {
-        const response = await fetch(WEBHOOK_URL, {
-            method: "POST",
-            mode: "no-cors", // Necessário para evitar bloqueios de CORS
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(aluno)
-        });
-        
-        mostrarToast("✅ Matrícula enviada com sucesso!");
-    } catch (err) {
-        console.error("Erro ao enviar:", err);
-        mostrarToast("⚠️ Erro ao sincronizar com a planilha.", "erro");
-    }
-}
+        async function enviarParaSheets(aluno) {
+            const params = new URLSearchParams({
+                nome: aluno.nome,
+                modalidade: aluno.modalidade.toUpperCase(),
+                idade: aluno.idade !== "—" ? aluno.idade : "",
+                nivel: aluno.nivel !== "—" ? aluno.nivel : "",
+                telefone: aluno.telefone !== "—" ? aluno.telefone : "",
+                bairro: aluno.bairro !== "—" ? aluno.bairro : "",
+                data: new Date().toLocaleDateString('pt-BR')
+            });
 
             try {
                 await fetch(`${WEBHOOK_URL}?${params.toString()}`, {
