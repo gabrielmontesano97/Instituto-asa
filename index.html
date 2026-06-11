@@ -249,9 +249,7 @@ async function enviarParaSheets(aluno) {
                 console.error("Erro ao enviar para o Google Sheets:", err);
                 mostrarToast("⚠️ Matrícula salva localmente, mas não foi possível sincronizar com a planilha.", "erro");
             }
-        }
-
-        // Clique no Card Jazz
+                // Clique no Card Jazz
         cardJazz.addEventListener('click', () => {
             if (passoAtual !== 1) return;
             modalidadeSelecionada = 'jazz';
