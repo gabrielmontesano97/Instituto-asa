@@ -268,26 +268,36 @@
                 btnContinuar.innerText = "Finalizar Matrícula 🚀";
                 passoAtual = 3;
 
-            } else if (passoAtual === 3) {
-                // Capturando os dados direto do resumo para consistência
-                const nomeFinal = document.getElementById('resumo-nome').innerText;
-                const idadeFinal = document.getElementById('resumo-idade').innerText;
-                const nivelFinal = document.getElementById('resumo-nivel').innerText;
-                const telefoneFinal = document.getElementById('resumo-telefone').innerText;
-                const bairroFinal = document.getElementById('resumo-bairro').innerText;
+            // ... dentro do seu addEventListener do btnContinuar ...
 
-                const novoAluno = {
-                    id: Date.now(),
-                    nome: nomeFinal,
-                    modalidade: modalidadeSelecionada,
-                    idade: idadeFinal !== "—" ? idadeFinal.replace(" anos", "") : "—",
-                    nivel: nivelFinal,
-                    telefone: telefoneFinal,
-                    bairro: bairroFinal
-                };
+} else if (passoAtual === 3) {
+    const nomeFinal = document.getElementById('resumo-nome').innerText;
+    // ... (pegue os outros campos aqui como você já faz)
 
-                bancoAlunos.push(novoAluno);
-                actualizarTabelaAlunos();
+    const novoAluno = {
+        id: Date.now(),
+        nome: nomeFinal,
+        modalidade: modalidadeSelecionada,
+        idade: idadeFinal !== "—" ? idadeFinal.replace(" anos", "") : "—",
+        nivel: nivelFinal,
+        telefone: telefoneFinal,
+        bairro: bairroFinal
+    };
+
+    // Cole o fetch AQUI:
+    fetch("https://script.google.com/macros/s/AKfycbw3aNKs3vyBK1iIaD6jbRFsQ9t73tw8GuXUwZV0Wm6GLm1uszGjL43HTGIF91FU4Y_l-w/exec", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(novoAluno)
+    })
+    .then(response => console.log("Enviado com sucesso!"))
+    .catch(error => console.error("Erro no envio:", error));
+
+    // Depois continua o seu código original de limpar campos e atualizar tabela
+    bancoAlunos.push(novoAluno);
+    actualizarTabelaAlunos();
+    // ... restante do seu código
+}
 
                 // Reset do Formulário completo
                 document.getElementById('input-nome').value = "";
@@ -415,6 +425,7 @@
                 actualizarTabelaAlunos();
             }
         }
+        
     </script>
 </body>
 </html>
