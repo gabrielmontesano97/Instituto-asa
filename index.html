@@ -286,14 +286,17 @@
                     bairro: bairroFinal
                 };
 // --- COLE ESTE BLOCO ---
-fetch("https://script.google.com/macros/s/AKfycbw3aNKs3vyBK1iIaD6jbRFsQ9t73tw8GuXUwZV0Wm6GLm1uszGjL43HTGIF91FU4Y_l-w/exec", {
+// Substitua o bloco que você inseriu por este:
+const urlAppsScript = "https://script.google.com/macros/s/AKfycbw3aNKs3vyBK1iIaD6jbRFsQ9t73tw8GuXUwZV0Wm6GLm1uszGjL43HTGIF91FU4Y_l-w/exec; // URL que termina em /exec
+
+fetch(urlAppsScript, {
     method: "POST",
+    mode: "no-cors", // Isso é essencial para evitar o bloqueio de segurança
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(novoAluno)
 })
-.then(response => response.json())
-.then(data => console.log("Enviado com sucesso!", data))
-.catch(error => console.error("Erro no envio:", error));
+.then(() => console.log("Requisição enviada!"))
+.catch(error => console.error("Erro:", error));
 // -----------------------
                 bancoAlunos.push(novoAluno);
                 actualizarTabelaAlunos();
