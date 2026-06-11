@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instituto Asa - Cadastro de Alunos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#0b0c10] text-white font-sans min-h-screen flex flex-col items-center justify-center p-4 relative">
+
+    <div class="w-full max-w-md bg-[#12141c] rounded-2xl p-6 border border-gray-800 shadow-2xl text-center">
+        
+        <span class="text-xs font-bold tracking-widest text-gray-400 uppercase">Instituto Asa</span>
+        <h1 class="text-3xl font-extrabold uppercase tracking-tight mt-1 mb-2">Cadastro de Alunos</h1>
+        <p class="text-xs text-gray-400 max-w-xs mx-auto mb-6">Escolha a modalidade e preencha os dados para realizar a matrícula.</p>
+
+        <div class="flex items-center justify-center gap-2 text-[10px] font-bold tracking-wider uppercase mb-6 text-gray-500">
+            <span id="passo1-txt" class="text-amber-500 transition-colors duration-300">1 Modalidade</span>
+            <span>&mdash;</span>
+            <span id="passo2-txt" class="transition-colors duration-300">2 Dados</span>
+            <span>&mdash;</span>
+            <span id="passo3-txt" class="transition-colors duration-300">3 Confirmação</span>
+        </div>
+
+        <div id="secao-modalidade" class="space-y-3 mb-6">
+            <p class="text-left text-xs font-bold tracking-wider text-gray-400 uppercase mb-1">Selecione a Modalidade</p>
+            
+            <div class="grid grid-cols-2 gap-3">
+                <div id="card-jazz" class="bg-[#1a1d29] border border-gray-800 rounded-xl p-4 cursor-pointer transition hover:border-purple-500/50 flex flex-col items-center justify-center min-h-[110px]">
+                    <span class="text-2xl mb-1">🎷</span>
+                    <span class="font-bold text-sm text-purple-400">JAZZ</span>
+                    <span class="text-[10px] text-gray-400 mt-0.5">Expressão & Ritmo</span>
+                </div>
+
+                <div id="card-boxe" class="bg-[#1a1d29] border border-amber-500 shadow-[0_0_15px_rgba(245,158,11,0.2)] rounded-xl p-4 cursor-pointer transition flex flex-col items-center justify-center min-h-[110px]">
+                    <span class="text-2xl mb-1">🥊</span>
+                    <span class="font-bold text-sm text-amber-500">BOXE</span>
+                    <span class="text-[10px] text-gray-400 mt-0.5">Força & Disciplina</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="secao-dados" class="hidden text-left bg-[#1a1d29] p-6 rounded-xl border border-gray-800 mb-6">
+            <p class="text-xs font-bold tracking-wider text-gray-400 uppercase mb-4">Preencha seus Dados</p>
+            
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-gray-400 uppercase mb-1">Nome Completo</label>
+                    <input type="text" id="input-nome" placeholder="Ex: João Silva" class="w-full bg-[#12141c] border border-gray-800 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-amber-500 transition text-white">
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-400 uppercase mb-1">Idade</label>
+                        <input type="number" id="input-idade" placeholder="Ex: 20" class="w-full bg-[#12141c] border border-gray-800 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-amber-500 transition text-white">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-400 uppercase mb-1">Nível</label>
+                        <select id="input-nivel" class="w-full bg-[#12141c] border border-gray-800 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-amber-500 transition text-gray-300">
+                            <option value="" disabled selected>Selecione...</option>
+                            <option value="Iniciante">Iniciante</option>
+                            <option value="Intermediário">Intermediário</option>
+                            <option value="Avançado">Avançado</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-gray-400 uppercase mb-1">Telefone</label>
+                    <input type="text" id="input-telefone" placeholder="(11) 99999-0000" class="w-full bg-[#12141c] border border-gray-800 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-amber-500 transition text-white">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-gray-400 uppercase mb-1">Bairro</label>
+                    <input type="text" id="input-bairro" placeholder="Ex: Centro" class="w-full bg-[#12141c] border border-gray-800 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-amber-500 transition text-white">
+                </div>
+            </div>
+        </div>
+
+        <div id="secao-confirmacao" class="hidden text-left bg-[#1a1d29] p-6 rounded-xl border border-gray-800 mb-6">
+            <p class="text-xs font-bold tracking-wider text-gray-400 uppercase mb-4">Confirme sua Matrícula</p>
+            
+            <div class="space-y-3 text-sm">
+                <div class="bg-[#12141c] p-3 rounded-lg border border-gray-800">
+                    <span class="text-gray-400 text-xs block uppercase font-semibold">Modalidade Escolhida</span>
+                    <p id="resumo-modalidade" class="font-bold text-base mt-1">—</p>
+                </div>
+
+                <div class="bg-[#12141c] p-3 rounded-lg border border-gray-800">
+                    <span class="text-gray-400 text-xs block uppercase font-semibold">Nome do Aluno</span>
+                    <p id="resumo-nome" class="font-semibold text-gray-200 mt-1">—</p>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div class="bg-[#12141c] p-3 rounded-lg border border-gray-800">
+                        <span class="text-gray-400 text-xs block uppercase font-semibold">Idade</span>
+                        <p id="resumo-idade" class="font-semibold text-gray-200 mt-1">—</p>
+                    </div>
+                    <div class="bg-[#12141c] p-3 rounded-lg border border-gray-800">
+                        <span class="text-gray-400 text-xs block uppercase font-semibold">Nível</span>
+                        <p id="resumo-nivel" class="font-semibold text-gray-200 mt-1">—</p>
+                    </div>
+                </div>
+
+                <div class="bg-[#12141c] p-3 rounded-lg border border-gray-800">
+                    <span class="text-gray-400 text-xs block uppercase font-semibold">Telefone de Contato</span>
+                    <p id="resumo-telefone" class="font-semibold text-gray-200 mt-1">—</p>
+                </div>
+
+                <div class="bg-[#12141c] p-3 rounded-lg border border-gray-800">
+                    <span class="text-gray-400 text-xs block uppercase font-semibold">Bairro</span>
+                    <p id="resumo-bairro" class="font-semibold text-gray-200 mt-1">—</p>
+                </div>
+            </div>
+        </div>
+
+        <button id="btn-continuar" class="w-full bg-amber-500 hover:bg-amber-600 text-black font-bold py-3 px-6 rounded-xl transition duration-300 flex items-center justify-center gap-2">
+            Continuar &rarr;
+        </button>
+
+    </div>
+
+    <div class="w-full max-w-2xl bg-[#12141c] rounded-2xl p-6 border border-gray-800 shadow-2xl mt-6 text-left">
+        <div class="flex items-center justify-between mb-4">
+            <div>
+                <h2 class="text-xl font-bold uppercase tracking-tight">Alunos Cadastrados</h2>
+                <p class="text-xs text-gray-400">Listagem de matrículas ativas (Clique no nome para detalhes)</p>
+            </div>
+            <span id="contador-alunos" class="bg-[#1a1d29] border border-gray-700 px-3 py-1 rounded-full text-xs font-bold text-amber-500">
+                0 alunos
+            </span>
+        </div>
+
+        <div class="overflow-x-auto">
+            <table class="w-full text-sm text-left text-gray-300">
+                <thead class="text-xs uppercase bg-[#1a1d29] text-gray-400 border-b border-gray-800">
+                    <tr>
+                        <th class="px-4 py-3">Aluno</th>
+                        <th class="px-4 py-3">Mod.</th>
+                        <th class="px-4 py-3">Idade</th>
+                        <th class="px-4 py-3">Nível</th>
+                        <th class="px-4 py-3">Bairro</th>
+                        <th class="px-4 py-3 text-right">Ação</th>
+                    </tr>
+                </thead>
+                <tbody id="lista-alunos-corpo" class="divide-y divide-gray-800">
+                    <tr id="linha-vazia">
+                        <td colspan="6" class="text-center py-8 text-gray-500 text-xs italic">Nenhum aluno cadastrado até o momento.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="modal-perfil" class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden items-center justify-center p-4 z-50">
+        <div class="w-full max-w-sm bg-[#12141c] border border-gray-800 rounded-2xl p-6 shadow-2xl relative text-center animate-in fade-in zoom-in-95 duration-200">
+            
+            <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[#1a1d29] border border-gray-700 text-3xl mb-3" id="modal-avatar">
+                🥊
+            </div>
+            
+            <h3 id="modal-nome" class="text-xl font-extrabold text-white mb-1 uppercase tracking-tight">—</h3>
+            <p id="modal-badge-modalidade" class="inline-block text-[10px] font-bold px-3 py-0.5 rounded-full mb-6">—</p>
+            
+            <div class="text-left space-y-3 text-sm border-t border-gray-800/60 pt-4">
+                <div class="flex justify-between border-b border-gray-800/40 pb-2">
+                    <span class="text-gray-400 font-medium">Idade:</span>
+                    <span id="modal-idade" class="font-semibold text-gray-200">—</span>
+                </div>
+                <div class="flex justify-between border-b border-gray-800/40 pb-2">
+                    <span class="text-gray-400 font-medium">Nível Técnico:</span>
+                    <span id="modal-nivel" class="font-semibold text-gray-200">—</span>
+                </div>
+                <div class="flex justify-between border-b border-gray-800/40 pb-2">
+                    <span class="text-gray-400 font-medium">Telefone:</span>
+                    <span id="modal-telefone" class="font-semibold text-amber-500 select-all">—</span>
+                </div>
+                <div class="flex justify-between pb-1">
+                    <span class="text-gray-400 font-medium">Bairro de Residência:</span>
+                    <span id="modal-bairro" class="font-semibold text-gray-200">—</span>
+                </div>
+            </div>
+
+            <button onclick="fecharModal()" class="w-full mt-6 bg-[#1a1d29] hover:bg-gray-800 border border-gray-700 text-gray-300 font-bold py-2.5 px-4 rounded-xl transition duration-200">
+                Fechar Ficha
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const cardJazz = document.getElementById('card-jazz');
+        const cardBoxe = document.getElementById('card-boxe');
+        const btnContinuar = document.getElementById('btn-continuar');
+        
+        const secaoModalidade = document.getElementById('secao-modalidade');
+        const secaoDados = document.getElementById('secao-dados');
+        const secaoConfirmacao = document.getElementById('secao-confirmacao');
+        
+        const txtPasso1 = document.getElementById('passo1-txt');
+        const txtPasso2 = document.getElementById('passo2-txt');
+        const txtPasso3 = document.getElementById('passo3-txt');
+
+        let modalidadeSelecionada = 'boxe';
+        let passoAtual = 1;
+        let bancoAlunos = []; 
+
+        // Clique no Card Jazz
+        cardJazz.addEventListener('click', () => {
+            if (passoAtual !== 1) return;
+            modalidadeSelecionada = 'jazz';
+            
+            cardJazz.className = "bg-[#1a1d29] border border-purple-500 shadow-[0_0_15px_rgba(168,85,247,0.2)] rounded-xl p-4 cursor-pointer transition flex flex-col items-center justify-center min-h-[110px]";
+            cardBoxe.className = "bg-[#1a1d29] border border-gray-800 rounded-xl p-4 cursor-pointer transition hover:border-amber-500/50 flex flex-col items-center justify-center min-h-[110px]";
+
+            txtPasso1.className = "text-purple-500 transition-colors duration-300";
+            btnContinuar.className = "w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-xl transition duration-300 flex items-center justify-center gap-2";
+        });
+
+        // Clique no Card Boxe
+        cardBoxe.addEventListener('click', () => {
+            if (passoAtual !== 1) return;
+            modalidadeSelecionada = 'boxe';
+            
+            cardBoxe.className = "bg-[#1a1d29] border border-amber-500 shadow-[0_0_15px_rgba(245,158,11,0.2)] rounded-xl p-4 cursor-pointer transition flex flex-col items-center justify-center min-h-[110px]";
+            cardJazz.className = "bg-[#1a1d29] border border-gray-800 rounded-xl p-4 cursor-pointer transition hover:border-purple-500/50 flex flex-col items-center justify-center min-h-[110px]";
+
+            txtPasso1.className = "text-amber-500 transition-colors duration-300";
+            btnContinuar.className = "w-full bg-amber-500 hover:bg-amber-600 text-black font-bold py-3 px-6 rounded-xl transition duration-300 flex items-center justify-center gap-2";
+        });
+
+        // Gerenciador de Fluxo
+        btnContinuar.addEventListener('click', () => {
+            if (passoAtual === 1) {
+                secaoModalidade.classList.add('hidden');
+                secaoDados.classList.remove('hidden');
+                
+                txtPasso1.className = "text-gray-500 transition-colors duration-300";
+                txtPasso2.className = modalidadeSelecionada === 'jazz' ? "text-purple-500 transition-colors duration-300" : "text-amber-500 transition-colors duration-300";
+                
+                passoAtual = 2;
+
+            } else if (passoAtual === 2) {
+                const nomeDigitado = document.getElementById('input-nome').value;
+                const idadeDigitada = document.getElementById('input-idade').value;
+                const nivelSelecionado = document.getElementById('input-nivel').value;
+                const telefoneDigitado = document.getElementById('input-telefone').value;
+                const bairroDigitado = document.getElementById('input-bairro').value;
+
+                if (nomeDigitado.trim() === "") {
+                    alert("Por favor, preencha o nome do aluno.");
+                    return;
+                }
+
+                document.getElementById('resumo-modalidade').innerText = modalidadeSelecionada.toUpperCase();
+                document.getElementById('resumo-nome').innerText = nomeDigitado;
+                document.getElementById('resumo-idade').innerText = idadeDigitada ? idadeDigitada + " anos" : "—";
+                document.getElementById('resumo-nivel').innerText = nivelSelecionado || "—";
+                document.getElementById('resumo-telefone').innerText = telefoneDigitado || "—";
+                document.getElementById('resumo-bairro').innerText = bairroDigitado || "—";
+
+                secaoDados.classList.add('hidden');
+                secaoConfirmacao.classList.remove('hidden');
+
+                txtPasso2.className = "text-gray-500 transition-colors duration-300";
+                txtPasso3.className = modalidadeSelecionada === 'jazz' ? "text-purple-500 transition-colors duration-300" : "text-amber-500 transition-colors duration-300";
+                
+                btnContinuar.innerText = "Finalizar Matrícula 🚀";
+                passoAtual = 3;
+
+            } else if (passoAtual === 3) {
+                // Capturando os dados direto do resumo para consistência
+                const nomeFinal = document.getElementById('resumo-nome').innerText;
+                const idadeFinal = document.getElementById('resumo-idade').innerText;
+                const nivelFinal = document.getElementById('resumo-nivel').innerText;
+                const telefoneFinal = document.getElementById('resumo-telefone').innerText;
+                const bairroFinal = document.getElementById('resumo-bairro').innerText;
+
+                const novoAluno = {
+                    id: Date.now(),
+                    nome: nomeFinal,
+                    modalidade: modalidadeSelecionada,
+                    idade: idadeFinal !== "—" ? idadeFinal.replace(" anos", "") : "—",
+                    nivel: nivelFinal,
+                    telefone: telefoneFinal,
+                    bairro: bairroFinal
+                };
+
+                bancoAlunos.push(novoAluno);
+                actualizarTabelaAlunos();
+
+                // Reset do Formulário completo
+                document.getElementById('input-nome').value = "";
+                document.getElementById('input-idade').value = "";
+                document.getElementById('input-nivel').value = "";
+                document.getElementById('input-telefone').value = "";
+                document.getElementById('input-bairro').value = "";
+
+                secaoConfirmacao.classList.add('hidden');
+                secaoModalidade.classList.remove('hidden');
+                
+                txtPasso3.className = "text-gray-500 transition-colors duration-300";
+                
+                if (modalidadeSelecionada === 'jazz') {
+                    txtPasso1.className = "text-purple-500 transition-colors duration-300";
+                    btnContinuar.className = "w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-xl transition duration-300 flex items-center justify-center gap-2";
+                } else {
+                    txtPasso1.className = "text-amber-500 transition-colors duration-300";
+                    btnContinuar.className = "w-full bg-amber-500 hover:bg-amber-600 text-black font-bold py-3 px-6 rounded-xl transition duration-300 flex items-center justify-center gap-2";
+                }
+
+                btnContinuar.innerHTML = 'Continuar &rarr;';
+                passoAtual = 1;
+
+                alert("Matrícula cadastrada com sucesso!");
+            }
+        });
+
+        // Renderizar a tabela
+        function actualizarTabelaAlunos() {
+            const corpoTabela = document.getElementById('lista-alunos-corpo');
+            const contador = document.getElementById('contador-alunos');
+            
+            contador.innerText = `${bancoAlunos.length} aluno${bancoAlunos.length !== 1 ? 's' : ''}`;
+            
+            if(bancoAlunos.length > 0) {
+                contador.className = "bg-[#1a1d29] border border-gray-700 px-3 py-1 rounded-full text-xs font-bold text-green-400";
+            } else {
+                contador.className = "bg-[#1a1d29] border border-gray-700 px-3 py-1 rounded-full text-xs font-bold text-amber-500";
+            }
+
+            corpoTabela.innerHTML = "";
+
+            if (bancoAlunos.length === 0) {
+                corpoTabela.innerHTML = `
+                    <tr id="linha-vazia">
+                        <td colspan="6" class="text-center py-8 text-gray-500 text-xs italic">Nenhum aluno cadastrado até o momento.</td>
+                    </tr>`;
+                return;
+            }
+
+            bancoAlunos.forEach(aluno => {
+                const badgeCor = aluno.modalidade === 'jazz' ? 'bg-purple-900/40 text-purple-400 border border-purple-800' : 'bg-amber-900/40 text-amber-500 border border-amber-800';
+                const emoji = aluno.modalidade === 'jazz' ? '🎷' : '🥊';
+
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-[#1a1d29]/50 transition border-b border-gray-800/50 text-gray-200";
+                tr.innerHTML = `
+                    <td class="px-4 py-3 font-semibold">
+                        <button onclick="verDetalhes(${aluno.id})" class="text-left hover:text-amber-400 font-bold transition underline decoration-dotted decoration-gray-600 hover:decoration-amber-400">
+                            ${aluno.nome}
+                        </button>
+                    </td>
+                    <td class="px-4 py-3">
+                        <span class="text-[10px] font-bold px-2 py-0.5 rounded ${badgeCor}">
+                            ${emoji} ${aluno.modalidade.toUpperCase()}
+                        </span>
+                    </td>
+                    <td class="px-4 py-3 text-gray-400">${aluno.textIdade = aluno.idade !== "—" ? aluno.idade + ' anos' : '—'}</td>
+                    <td class="px-4 py-3 text-gray-400">${aluno.nivel}</td>
+                    <td class="px-4 py-3 text-gray-400">${aluno.bairro}</td>
+                    <td class="px-4 py-3 text-right">
+                        <button onclick="removerAluno(${aluno.id})" class="text-xs text-red-500 hover:text-red-400 font-medium transition px-2 py-1 rounded hover:bg-red-950/30">
+                            Remover
+                        </button>
+                    </td>
+                `;
+                corpoTabela.appendChild(tr);
+            });
+        }
+
+        // Função para abrir o Modal de detalhes buscado pelo ID
+        function verDetalhes(idDoAluno) {
+            const aluno = bancoAlunos.find(a => a.id === idDoAluno);
+            if (!aluno) return;
+
+            // Injeta as informações no Modal
+            document.getElementById('modal-nome').innerText = aluno.nome;
+            document.getElementById('modal-idade').innerText = aluno.idade !== "—" ? aluno.idade + " anos" : "Não informada";
+            document.getElementById('modal-nivel').innerText = aluno.nivel;
+            document.getElementById('modal-telefone').innerText = aluno.telefone;
+            document.getElementById('modal-bairro').innerText = aluno.bairro;
+
+            // Altera elementos visuais dependendo do esporte
+            const avatar = document.getElementById('modal-avatar');
+            const badge = document.getElementById('modal-badge-modalidade');
+
+            if(aluno.modalidade === 'jazz') {
+                avatar.innerText = "🎷";
+                badge.innerText = "JAZZ DANCE";
+                badge.className = "inline-block text-[10px] font-bold px-3 py-0.5 rounded-full bg-purple-900/50 text-purple-400 border border-purple-800";
+            } else {
+                avatar.innerText = "🥊";
+                badge.innerText = "BOXE EM GRUPO";
+                badge.className = "inline-block text-[10px] font-bold px-3 py-0.5 rounded-full bg-amber-900/50 text-amber-500 border border-amber-800";
+            }
+
+            // Mostra o Modal (Troca hidden por flex)
+            const modal = document.getElementById('modal-perfil');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        // Função para fechar o Modal
+        function fecharModal() {
+            const modal = document.getElementById('modal-perfil');
+            modal.classList.remove('flex');
+            modal.classList.add('hidden');
+        }
+
+        // Remover Matrícula
+        function removerAluno(idDoAluno) {
+            if (confirm("Tem certeza que deseja remover esta matrícula?")) {
+                bancoAlunos = bancoAlunos.filter(aluno => aluno.id !== idDoAluno);
+                actualizarTabelaAlunos();
+            }
+        }
+    </script>
+</body>
+</html>
